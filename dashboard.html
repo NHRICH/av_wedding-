@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Admin dashboard for the Wahyu &amp; Riski wedding invitation">
+    <title>Wahyu &amp; Riski — dashboard</title>
+    <meta name="theme-color" content="#f8f9fa">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/images/icon-192x192.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap">
+    <style>
+        body { font-family: 'Josefin Sans', sans-serif; }
+        .status-ok { color: #198754; }
+        .status-warn { color: #dc3545; }
+        .wish-row { font-size: 0.85rem; }
+        .photo-thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 0.5rem; }
+    </style>
+</head>
+
+<body class="bg-light">
+    <main class="container py-4 py-md-5" style="max-width: 52rem;">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+            <div>
+                <h1 class="h3 fw-bold mb-1">Wahyu &amp; Riski</h1>
+                <p class="text-secondary mb-0">Wedding dashboard</p>
+            </div>
+            <a href="/" class="btn btn-primary btn-sm rounded-4"><i class="fa-solid fa-envelope-open-text me-1"></i>View invitation</a>
+        </div>
+
+        <div id="server-status" class="alert alert-secondary rounded-4 small mb-4" role="status">
+            <i class="fa-solid fa-spinner fa-spin me-2"></i>Connecting to server…
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="card shadow-sm rounded-4 border-0 h-100">
+                    <div class="card-body text-center py-3">
+                        <p class="small text-secondary mb-1">Wishes</p>
+                        <p class="h4 fw-bold mb-0" id="stat-wishes">—</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card shadow-sm rounded-4 border-0 h-100">
+                    <div class="card-body text-center py-3">
+                        <p class="small text-secondary mb-1">Photos</p>
+                        <p class="h4 fw-bold mb-0" id="stat-photos">—</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card shadow-sm rounded-4 border-0 h-100">
+                    <div class="card-body text-center py-3">
+                        <p class="small text-secondary mb-1">Sheet</p>
+                        <p class="h6 mb-0" id="stat-sheet">—</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card shadow-sm rounded-4 border-0 h-100">
+                    <div class="card-body text-center py-3">
+                        <p class="small text-secondary mb-1">Drive</p>
+                        <p class="h6 mb-0" id="stat-drive">—</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-4 border-0 mb-3">
+            <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                    <h2 class="h6 fw-bold mb-0"><i class="fa-solid fa-comments me-2"></i>Recent wishes &amp; RSVP</h2>
+                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-4" id="btn-refresh"><i class="fa-solid fa-rotate me-1"></i>Refresh</button>
+                </div>
+                <div id="wishes-list">
+                    <p class="small text-secondary mb-0">Loading…</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-4 border-0 mb-3">
+            <div class="card-body">
+                <h2 class="h6 fw-bold mb-3"><i class="fa-solid fa-images me-2"></i>Guest photos</h2>
+                <div id="photos-grid" class="d-flex flex-wrap gap-2">
+                    <p class="small text-secondary mb-0">Loading…</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-4 border-0 mb-3">
+            <div class="card-body">
+                <h2 class="h6 fw-bold mb-2"><i class="fa-solid fa-link me-2"></i>Quick links</h2>
+                <div class="d-flex flex-wrap gap-2">
+                    <a id="sheet-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm rounded-4 d-none">Google Sheet</a>
+                    <a id="drive-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm rounded-4 d-none">Drive folder</a>
+                    <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary btn-sm rounded-4">Cloud Console</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-4 border-0">
+            <div class="card-body">
+                <h2 class="h6 fw-bold mb-2"><i class="fa-solid fa-key me-2"></i>Setup</h2>
+                <ol class="small mb-0 ps-3">
+                    <li>Copy <code>.env.example</code> to <code>.env</code></li>
+                    <li>Enable Google Drive API and Google Sheets API</li>
+                    <li>Share Sheet and Drive folder with the service account (Editor)</li>
+                    <li>Run <code>npm start</code></li>
+                    <li>Open <strong><span id="dashboard-url">http://localhost:3000/dashboard.html</span></strong></li>
+                </ol>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const api = (path) => fetch(path).then((r) => r.json().then((j) => ({ ok: r.ok, status: r.status, data: j })));
+
+        const escapeHtml = (s) => String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+
+        const box = document.getElementById('server-status');
+        const wishesList = document.getElementById('wishes-list');
+        const photosGrid = document.getElementById('photos-grid');
+
+        document.getElementById('dashboard-url').textContent = `${location.origin}/dashboard.html`;
+
+        async function loadWishes() {
+            const res = await api('/api/wishes');
+            if (!res.ok) {
+                wishesList.innerHTML = `<p class="small status-warn mb-0">${escapeHtml(res.data?.error || 'Could not load wishes')}</p>`;
+                document.getElementById('stat-wishes').textContent = '!';
+                return;
+            }
+
+            const rows = res.data?.data || [];
+            document.getElementById('stat-wishes').textContent = String(rows.length);
+
+            if (rows.length === 0) {
+                wishesList.innerHTML = '<p class="small text-secondary mb-0">No wishes yet.</p>';
+                return;
+            }
+
+            wishesList.innerHTML = rows.slice(0, 20).map((w) => `
+                <div class="border-bottom py-2 wish-row">
+                    <div class="d-flex justify-content-between gap-2">
+                        <strong>${escapeHtml(w.name)}</strong>
+                        <span class="text-secondary text-nowrap">${escapeHtml(w.timestamp ? new Date(w.timestamp).toLocaleString() : '')}</span>
+                    </div>
+                    ${w.presence ? `<span class="badge text-bg-light border">${escapeHtml(w.presence)}</span>` : ''}
+                    <p class="mb-0 mt-1">${escapeHtml(w.message)}</p>
+                </div>
+            `).join('');
+        }
+
+        async function loadPhotos() {
+            const res = await api('/api/photos');
+            if (!res.ok) {
+                photosGrid.innerHTML = `<p class="small status-warn mb-0">${escapeHtml(res.data?.error || 'Could not load photos')}</p>`;
+                document.getElementById('stat-photos').textContent = '!';
+                return;
+            }
+
+            const files = res.data?.data || [];
+            document.getElementById('stat-photos').textContent = String(files.length);
+
+            if (files.length === 0) {
+                photosGrid.innerHTML = '<p class="small text-secondary mb-0">No guest photos yet.</p>';
+                return;
+            }
+
+            photosGrid.innerHTML = files.slice(0, 24).map((f) => {
+                const src = f.thumbnailLink || f.webViewLink || '';
+                const href = f.webViewLink || src;
+                return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer"><img class="photo-thumb" src="${escapeHtml(src)}" alt="${escapeHtml(f.name || 'photo')}" loading="lazy" referrerpolicy="no-referrer"></a>`;
+            }).join('');
+        }
+
+        async function loadStatus() {
+            try {
+                const res = await api('/api/admin/status');
+                if (!res.ok) {
+                    throw new Error('status failed');
+                }
+
+                const d = res.data;
+                box.className = 'alert alert-success rounded-4 small mb-4';
+                box.innerHTML = '<i class="fa-solid fa-circle-check me-2"></i>Server is running.';
+
+                const sheetEl = document.getElementById('stat-sheet');
+                const driveEl = document.getElementById('stat-drive');
+                const sheetLink = document.getElementById('sheet-link');
+                const driveLink = document.getElementById('drive-link');
+
+                if (d.spreadsheet && d.spreadsheetId) {
+                    sheetEl.innerHTML = '<span class="status-ok">OK</span>';
+                    sheetLink.href = `https://docs.google.com/spreadsheets/d/${d.spreadsheetId}/edit`;
+                    sheetLink.classList.remove('d-none');
+                } else {
+                    sheetEl.innerHTML = '<span class="status-warn">Missing</span>';
+                }
+
+                if (d.drive && d.driveFolderId) {
+                    driveEl.innerHTML = '<span class="status-ok">OK</span>';
+                    driveLink.href = `https://drive.google.com/drive/folders/${d.driveFolderId}`;
+                    driveLink.classList.remove('d-none');
+                } else {
+                    driveEl.innerHTML = '<span class="status-warn">Missing</span>';
+                }
+
+                await Promise.all([loadWishes(), loadPhotos()]);
+            } catch {
+                box.className = 'alert alert-warning rounded-4 small mb-4';
+                box.innerHTML = `
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    <strong>Server not reachable.</strong> Run <code>npm start</code> in the project folder, then open
+                    <a href="${location.origin}/dashboard.html">${location.origin}/dashboard.html</a>
+                    (do not double-click this file in Explorer).
+                `;
+                wishesList.innerHTML = '<p class="small text-secondary mb-0">Start the server first.</p>';
+                photosGrid.innerHTML = '<p class="small text-secondary mb-0">Start the server first.</p>';
+            }
+        }
+
+        document.getElementById('btn-refresh').addEventListener('click', () => {
+            loadStatus();
+        });
+
+        loadStatus();
+    </script>
+</body>
+
+</html>

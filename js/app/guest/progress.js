@@ -1,5 +1,7 @@
 export const progress = (() => {
 
+    const MAX_LOADING_MS = 1000;
+
     /**
      * @type {HTMLElement|null}
      */
@@ -13,11 +15,37 @@ export const progress = (() => {
     let total = 0;
     let loaded = 0;
     let valid = true;
+    let doneFired = false;
+
+    /**
+     * @type {ReturnType<typeof setTimeout>|null}
+     */
+    let maxLoadingTimer = null;
 
     /**
      * @type {Promise<void>|null}
      */
     let cancelProgress = null;
+
+    /**
+     * @returns {void}
+     */
+    const finish = () => {
+        if (doneFired) {
+            return;
+        }
+
+        doneFired = true;
+        valid = false;
+        cancelProgress = null;
+
+        if (maxLoadingTimer) {
+            clearTimeout(maxLoadingTimer);
+            maxLoadingTimer = null;
+        }
+
+        document.dispatchEvent(new Event('undangan.progress.done'));
+    };
 
     /**
      * @returns {void}
@@ -52,9 +80,7 @@ export const progress = (() => {
         }
 
         if (loaded === total) {
-            valid = false;
-            cancelProgress = null;
-            document.dispatchEvent(new Event('undangan.progress.done'));
+            finish();
         }
     };
 
@@ -96,6 +122,7 @@ export const progress = (() => {
         bar = document.getElementById('progress-bar');
         info?.classList.remove('d-none');
         cancelProgress = new Promise((res) => document.addEventListener('undangan.progress.invalid', res));
+        maxLoadingTimer = setTimeout(finish, MAX_LOADING_MS);
     };
 
     return {

@@ -634,7 +634,14 @@ export const guest = (() => {
 
      */
 
+    let booted = false;
+
     const booting = async () => {
+        if (booted) {
+            return;
+        }
+
+        booted = true;
 
         animateSvg();
 

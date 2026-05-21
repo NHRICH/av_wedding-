@@ -510,7 +510,7 @@ export const guest = (() => {
 
             action: 'TEMPLATE',
 
-            text: 'The Wedding of Wahyu and Riski',
+            text: 'The Wedding of Kbrom and Betty',
 
             dates: `${formatDate('2023-03-15 10:00')}/${formatDate('2023-03-15 11:00')}`,
 

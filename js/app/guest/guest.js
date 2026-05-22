@@ -22,8 +22,6 @@ import { lang } from '../../common/language.js';
 
 import { i18n } from '../../common/i18n.js';
 
-import { strings } from '../../i18n/strings.js';
-
 import { storage } from '../../common/storage.js';
 
 import { offline } from '../../common/offline.js';
@@ -45,60 +43,6 @@ export const guest = (() => {
      */
 
     let information = null;
-
-
-
-    /**
-
-     * @returns {Date}
-
-     */
-
-    const getWeddingDate = () => {
-
-        const wedding = new Date();
-
-        wedding.setMonth(wedding.getMonth() + 1);
-
-        wedding.setHours(10, 0, 0, 0);
-
-        return wedding;
-
-    };
-
-
-
-    /**
-
-     * @returns {void}
-
-     */
-
-    const syncWeddingSchedule = () => {
-
-        const wedding = getWeddingDate();
-
-        const pad = (n) => String(n).padStart(2, '0');
-
-        const y = wedding.getFullYear();
-
-        const mo = pad(wedding.getMonth() + 1);
-
-        const d = pad(wedding.getDate());
-
-
-
-        document.body.setAttribute('data-time', `${y}-${mo}-${d} 10:00:00`);
-
-
-
-        const dateOpts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-        strings.en.weddingDate = wedding.toLocaleDateString('en-US', dateOpts);
-
-        strings.am.weddingDate = wedding.toLocaleDateString('am-ET', dateOpts);
-
-    };
 
 
 
@@ -548,15 +492,7 @@ export const guest = (() => {
 
             text: 'The Wedding of Kibrom and Betty',
 
-            dates: (() => {
-
-                const start = (document.body.getAttribute('data-time') || '2026-06-22 10:00:00').slice(0, 16);
-
-                const day = start.slice(0, 11);
-
-                return `${formatDate(start)}/${formatDate(`${day}13:00`)}`;
-
-            })(),
+            dates: `${formatDate('2026-06-22 10:00')}/${formatDate('2026-06-22 11:00')}`,
 
             details: i18n.t('inviteIntro'),
 
@@ -822,8 +758,6 @@ export const guest = (() => {
      */
 
     const init = () => {
-
-        syncWeddingSchedule();
 
         i18n.init();
 

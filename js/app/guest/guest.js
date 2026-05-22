@@ -330,8 +330,6 @@ export const guest = (() => {
 
         document.getElementById('button-lang')?.classList.remove('d-none');
 
-
-
         slide();
 
         theme.spyTop();
@@ -450,24 +448,6 @@ export const guest = (() => {
 
      */
 
-    const normalizeArabicFont = () => {
-
-        document.querySelectorAll('.font-arabic').forEach((el) => {
-
-            el.innerHTML = String(el.innerHTML).normalize('NFC');
-
-        });
-
-    };
-
-
-
-    /**
-
-     * @returns {void}
-
-     */
-
     const animateSvg = () => {
 
         document.querySelectorAll('svg').forEach((el) => {
@@ -510,7 +490,7 @@ export const guest = (() => {
 
             action: 'TEMPLATE',
 
-            text: 'The Wedding of Kbrom and Betty',
+            text: 'The Wedding of Kibrom and Betty',
 
             dates: `${formatDate('2023-03-15 10:00')}/${formatDate('2023-03-15 11:00')}`,
 
@@ -651,8 +631,6 @@ export const guest = (() => {
 
         modalImageClick();
 
-        normalizeArabicFont();
-
         buildGoogleCalendar();
 
 
@@ -736,18 +714,12 @@ export const guest = (() => {
 
 
         document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
-
             btn.addEventListener('click', () => pickLanguage(btn.getAttribute('data-lang-btn')));
-
         });
-
-
 
         document.getElementById('button-lang')?.addEventListener('click', toggleLanguage);
 
         pickLanguage(i18n.getLang());
-
-
 
         const confettiOn = document.body.getAttribute('data-confetti') !== 'false';
 

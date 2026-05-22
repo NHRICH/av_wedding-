@@ -2,7 +2,7 @@
 
 ![Thumbnail](/assets/images/banner.webp)
 
-Bilingual (English / Amharic) wedding invitation with guest wishes and RSVP stored in **Google Sheets**, and photo uploads stored in **Google Drive**.
+English wedding invitation (Orthodox Christian) with guest wishes and RSVP stored in **Google Sheets**, and photo uploads stored in **Google Drive**.
 
 ## Quick start
 
@@ -38,7 +38,7 @@ Never commit `.env` (it is in `.gitignore`).
 
 ## Features
 
-- **Languages**: English and Amharic  choose on the welcome screen; switch anytime with the EN/ÔøΩ button.
+- **Languages**: English and Amharic ù choose on the welcome screen; switch anytime with the EN/?? button.
 - **Wishes & RSVP**: saved to your Google Sheet via `POST /api/wishes`.
 - **Guest photos**: upload from the gallery section; files go to Drive and appear in the guest grid.
 - **No ulems API**: `data-key` / `data-url` are removed; everything uses the local Node API.
@@ -60,7 +60,7 @@ Edit layout and couple details in `index.html`.
 
 The project includes `vercel.json`. **`npm run build`** bundles JS and copies the site into **`public/`** (Vercels output directory).
 
-In the Vercel project ÔøΩ **Settings ÔøΩ Environment Variables**, add:
+In the Vercel project ù **Settings ù Environment Variables**, add:
 
 - `GOOGLE_SERVICE_ACCOUNT_JSON`  full service account JSON (one line)
 - `GOOGLE_SPREADSHEET_ID`

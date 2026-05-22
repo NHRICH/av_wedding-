@@ -69,9 +69,7 @@ const loadConfetti = (c) => {
 const loadAdditionalFont = (c) => {
 
     const fonts = [
-        { css: 'https://fonts.googleapis.com/css2?family=Sacramento&display=swap', family: 'Sacramento' },
-        { css: 'https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap', family: 'Noto Naskh Arabic' },
-        { css: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic&display=swap', family: 'Noto Sans Ethiopic' },
+        { css: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap', family: 'Cormorant Garamond' },
     ];
 
     /**

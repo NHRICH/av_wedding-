@@ -12,15 +12,37 @@ html {
 }
 
 .font-esthetic {
-    font-family: 'Sacramento', cursive !important;
+    font-family: 'Cormorant Garamond', 'Josefin Sans', serif !important;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
-.font-arabic {
-    font-family: 'Noto Naskh Arabic', serif !important;
+body.minimal-site {
+    letter-spacing: 0.01em;
 }
 
-html[lang="am"] body {
-    font-family: 'Noto Sans Ethiopic', 'Josefin Sans', sans-serif;
+body.minimal-site .svg-wrapper {
+    display: none;
+}
+
+body.minimal-site section {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+body.minimal-site .font-esthetic {
+    font-size: 1.75rem !important;
+}
+
+body.minimal-site .img-center-crop {
+    width: 10rem;
+    height: 10rem;
+}
+
+body.minimal-site .border.rounded-5.shadow {
+    border: 1px solid rgba(var(--bs-secondary-rgb), 0.15) !important;
+    box-shadow: none !important;
+    border-radius: 0.75rem !important;
 }
 
 .img-center-crop {
